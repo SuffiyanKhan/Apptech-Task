@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Currency Converter</title>
+</head>
+<body>
+
+<h1>Currency Converter</h1>
+
+<div>
+  <label for="amount">Amount:</label>
+  <input type="number" id="amount">
+</div>
+
+<div>
+  <label for="from">From:</label>
+  <select id="from">
+    <option value="USD">USD</option>
+    <option value="EUR">EUR</option>
+    <option value="GBP">GBP</option>
+    <option value="JPY">JPY</option>
+    <option value="CAD">CAD</option>
+    <!-- Add more currencies here -->
+  </select>
+</div>
+
+<div>
+  <label for="to">To:</label>
+  <select id="to">
+    <option value="USD">USD</option>
+    <option value="EUR">EUR</option>
+    <option value="GBP">GBP</option>
+    <option value="JPY">JPY</option>
+    <option value="CAD">CAD</option>
+    <!-- Add more currencies here -->
+  </select>
+</div>
+
+<button onclick="convert()">Convert</button>
+
+<div id="result"></div>
+
+<script>
+function convert() {
+  let exchangeRates = {
+    USD: {
+            EUR: 0.85,
+            GBP: 0.73,
+            JPY: 111.20,
+            CAD: 1.27
+        },
+        EUR: {
+            USD: 1.18,
+            GBP: 0.86,
+            JPY: 130.89,
+            CAD: 1.48
+        },
+        GBP: {
+            USD: 1.38,
+            EUR: 1.16,
+            JPY: 152.22,
+            CAD: 1.73
+        },
+        JPY: {
+            USD: 0.009,
+            EUR: 0.008,
+            GBP: 0.007,
+            CAD: 0.011
+        },
+        CAD: {
+            USD: 0.79,
+            EUR: 0.68,
+            GBP: 0.58,
+            JPY: 88.11
+        }
+  };
+
+  let amount = parseFloat(document.getElementById("amount").value);
+  let fromCurrency = document.getElementById("from").value;
+  let toCurrency = document.getElementById("to").value;
+
+//   Check if currencies are same
+  if (fromCurrency === toCurrency) {
+    document.querySelector("#result").innerText = "Please select different currencies.";
+    return;
+  }
+
+  // Check if exchange rate is available
+  if (!exchangeRates[fromCurrency] || !exchangeRates[fromCurrency][toCurrency]) {
+    document.querySelector("#result").innerText = "Exchange rate not available.";
+    return;
+  }
+  document.querySelector("#result").innerText = amount + ' ' + fromCurrency + ' = ' + exchangeRates[fromCurrency][toCurrency]*amount.toFixed(2) + ' ' + toCurrency;
+}
+</script>
+
+</body>
+</html>

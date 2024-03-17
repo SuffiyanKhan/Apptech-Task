@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>Counter Application</h3>
+    <p>Count is <span id="counter">0</span></p>
+    <button onclick="increament()">Increament</button>
+    <button onclick="decreament()">Decreament</button>
+    <button onclick="zero()">Zero</button>
+
+
+    <script>
+        let counter =0;
+         let increament =()=>{
+            counter ++
+            document.querySelector("#counter").innerHTML = counter
+        }
+        let decreament =()=>{
+            if (counter > 0) {
+                counter--;
+                document.querySelector("#counter").innerHTML = counter;
+            }
+
+        }
+        let zero =()=>{
+            counter =0
+            document.querySelector("#counter").innerHTML = counter;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input placeholder="Enter your age " type="text" id="getInput">
+    <button id="checker" >Check</button>
+    <p id="para" ></p>
+    <script>
+        document.querySelector("#checker").addEventListener('click' , ()=>{
+            let getInput = document.querySelector("#getInput")
+            if(getInput.value > 18){
+                document.querySelector("#para").innerHTML = "Congratulations! You are eligible to vote."
+            }else{
+                document.querySelector("#para").innerHTML = "Sorry, you are not eligible to vote yet."
+            }
+        })
+
+    </script>
+</body>
+</html>

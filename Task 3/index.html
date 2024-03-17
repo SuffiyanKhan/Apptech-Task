@@ -1,0 +1,23 @@
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+ </head>
+ <body>
+    <input type="color" id="colorPicker">
+<button id="changeColorBtn">Change Background Color</button>
+    <script>
+        const colorPicker = document.getElementById("colorPicker");
+        const changeColorBtn = document.getElementById("changeColorBtn");
+    
+        // Event listener for button click
+        changeColorBtn.addEventListener("click", function() {
+            const selectedColor = colorPicker.value;
+            document.body.style.backgroundColor = selectedColor;
+        });
+
+    </script>
+ </body>
+ </html>

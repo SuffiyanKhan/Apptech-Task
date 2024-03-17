@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <h2 class="text-center mt-5">Login</h2>
+    <input class="form-control mt-3" placeholder="Enter Aptech" type="text" id="username">
+    <input class="form-control mt-3" placeholder="Enter aptech123" type="text" id="password">
+    <button class="btn btn-dark mt-5" onclick="login()">Login</button>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Function to hash the password
+        function hashPassword(password) {
+             // Simple hash function converting each character to its ASCII code
+            let passwordCoverting = ""
+            for(let i=0; i < password.length; i++){
+                passwordCoverting += password.charCodeAt(i)
+            }
+            return passwordCoverting; 
+        }
+         // Function to validate login credentials
+        function login() {
+             // Get the username and password from the form
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Convert the provided password to its form
+            const inputPasswordConverting = hashPassword(password);
+
+            // Hash the stored password by default ("aptech123")
+             const  convertingPasswordStored = hashPassword("aptech123");
+            
+            // Check if username and hashed password match the stored credentials
+            if(username === "Aptech" &&inputPasswordConverting === convertingPasswordStored){
+                 Swal.fire({
+                title: "Good job!",
+                text: "Congratulation, Successfully Login!",
+                icon: "success"
+                });
+            }else{
+                Swal.fire({
+                title: "Error!",
+                text: "Invalid Credential!",
+                icon: "error"
+                });
+            }
+             
+        }
+    </script>
+</body>
+</html>

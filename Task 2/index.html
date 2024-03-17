@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>Generated Random Number</h3>
+    <button onclick="randomNumberGenerated()">Click to create random number</button>
+    <p>random generated number is <span id="number"></span></p>
+    <script>
+        var randomNumber = Math.random();
+let createRandomNumber =(min, max)=>{
+  return Math.floor(Math.random() * (max - min) + min);
+}
+let randomNumberGenerated =()=>{
+    var randomInteger = createRandomNumber(1, 10); 
+    document.querySelector("#number").innerHTML = randomInteger
+ }
+
+
+    </script>
+</body>
+</html>
