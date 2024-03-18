@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Welcome to the Bank</h2>
+    <div class="">
+        <h3>Account Information</h3>
+    <label for="">Account Name</label>
+    <input type="text" id="name"> <br>
+    <label for="">Initial balance</label>
+    <input type="number" id="innumber"><br>
+    <button id="createAccount">Create Account</button>
+   </div>
+   <div class="">
+    <h3>Transaction</h3>
+    <label for="">Amount</label>
+    <input type="number" id="depositOrTranscation"><br>
+    <button id="deposite">Deposite</button>
+    <button id="transaction">Transaction</button>
+   </div>
+
+   <h3>Current Balance</h3>
+   <p>your current balance is <span id="para"></span></p>
+
+   <script>
+
+    document.querySelector("#createAccount").addEventListener('click', ()=>{
+        let accountName =  document.querySelector('#name')
+        let initialBalance =  document.querySelector('#innumber')
+        let name = accountName.value
+        let number = initialBalance.value;
+        let covertingInToNumber = parseFloat(number)
+        console.log(name , covertingInToNumber)
+        if(name.trim() === " " || isNaN(covertingInToNumber) || covertingInToNumber <= 0 ){
+            alert('Please enter a valid account name and initial balance.');
+        }
+         
+        const userAccount = {
+            Name :name,
+            Number :covertingInToNumber
+        }
+        localStorage.setItem('UserAcccount', JSON.stringify(userAccount))
+      alert("Create Account successfully")
+
+        accountName = " ";
+        covertingInToNumber = " "
+    })
+
+    document.querySelector("#deposite").addEventListener("click" , ()=>{
+      let getDeposite =    document.querySelector('#depositOrTranscation')
+      let number = getDeposite.value;
+      let converting =  parseFloat(number)
+      if (isNaN(converting) || converting <= 0) {
+        alert('Please enter a valid deposit amount.');
+      }
+
+      let getData = JSON.parse(localStorage.getItem('UserAcccount'))
+      getData.Number += converting
+      localStorage.setItem('UserAcccount' , JSON.stringify(getData))
+      converting = " "
+      alert("Deposite successfully")
+      updateBalance()
+    })
+
+    document.querySelector("#transaction").addEventListener('click' , ()=>{
+        let withdrawAmount =    document.querySelector('#depositOrTranscation')
+      let number = withdrawAmount.value;
+      let converting =  parseFloat(number)
+      if(converting  === " "){
+        alert('Enter number ')
+      }
+      let getData = JSON.parse(localStorage.getItem('UserAcccount'))
+       if (converting > getData.Number) {
+        alert('Insufficient funds.');
+      }
+      getData.Number -= converting
+      localStorage.setItem('UserAcccount' , JSON.stringify(getData))
+      alert("Transaction successfully")
+
+      updateBalance()
+    })
+    
+    let updateBalance = () => {
+        let getData = JSON.parse(localStorage.getItem('UserAcccount'))
+
+        document.querySelector("#para").innerHTML= getData.Number
+    }
+   </script>
+</body>
+</html>
