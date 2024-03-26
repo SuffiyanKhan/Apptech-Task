@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Receipt Book</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+    input[type="text"], input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      margin: 5px 0;
+      box-sizing: border-box;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .receipt {
+      margin-bottom: 20px;
+      padding: 10px;
+      border: 1px solid #ddd;
+    }
+  </style>
+</head>
+<body>
+
+<h2 style="text-align: center;">Recipe Book</h2>
+<h2> Add New Recipe </h2>
+
+<input type="text" id="recipeName" placeholder="Recipe Name">
+<textarea id="Ingredients" placeholder="Ingredients" cols="100" rows="0"></textarea><br>
+<textarea id="Instructions" placeholder="Instructions" cols="100" rows="0"></textarea><br>
+<button onclick="addItem()">Add Receipt</button>
+
+<div id="receiptContainer"></div>
+
+<script>
+  function addItem() {
+    let recipeName = document.querySelector("#recipeName").value;
+    let Ingredients = document.querySelector("#Ingredients").value;
+    let Instructions = document.querySelector("#Instructions").value;
+
+    if (recipeName === '' || Ingredients === '' || Instructions === '') {
+      alert("Please fill in all fields.");
+      return;
+    }
+
+    let receipt = {
+      recipeName: recipeName,
+      Ingredients: Ingredients,
+      Instructions: Instructions
+    };
+
+    let receipts = JSON.parse(localStorage.getItem("receipts")) || [];
+    receipts.push(receipt);
+    localStorage.setItem("receipts", JSON.stringify(receipts));
+
+    document.getElementById("recipeName").value = '';
+    document.getElementById("Ingredients").value = '';
+    document.getElementById("Instructions").value = '';
+
+    displayReceipts(receipts);
+  }
+
+  function deleteReceipt(index) {
+    let receipts = JSON.parse(localStorage.getItem("receipts")) || [];
+    receipts.splice(index, 1);
+    localStorage.setItem("receipts", JSON.stringify(receipts));
+    displayReceipts(receipts);
+  }
+
+  function displayReceipts(receipts) {
+    let receiptContainer = document.getElementById("receiptContainer");
+    receiptContainer.innerHTML = ""; // Clear previous contents
+
+    receipts.forEach(function(receipt, index) {
+      let receiptDiv = document.createElement("div");
+      receiptDiv.classList.add("receipt");
+
+      let htmlContent = `
+        <h4>${receipt.recipeName}</h4>
+        <p>Ingredients : ${receipt.Ingredients}</p>
+        <p>Instructions : ${receipt.Instructions}</p>
+        <button onclick="deleteReceipt(${index})">Delete</button>
+      `;
+
+      receiptDiv.innerHTML = htmlContent;
+      receiptContainer.appendChild(receiptDiv);
+    });
+  }
+
+  let receipts = JSON.parse(localStorage.getItem("receipts")) || [];
+  displayReceipts(receipts);
+</script>
+
+</body>
+</html>

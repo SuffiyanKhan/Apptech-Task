@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagonal Circles</title>
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+    }
+    canvas {
+        display: block;
+        margin: auto;
+        background-color: #f0f0f0;
+    }
+    form {
+        text-align: center;
+        margin-top: 20px;
+    }
+    label {
+        margin-right: 10px;
+    }
+</style>
+</head>
+<body>
+<canvas id="myCanvas"></canvas>
+<form id="inputForm">
+    <label for="circleCount">Number of Circles:</label>
+    <input type="number" id="circleCount" min="5" value="5">
+    <br>
+    <button type="submit">Draw Circles</button>
+</form>
+
+<script>
+    const canvas = document.getElementById('myCanvas');
+    const ctx = canvas.getContext('2d');
+
+    document.getElementById('inputForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        drawCircles();
+    });
+
+    function drawCircles() {
+        const circleCount = parseInt(document.getElementById('circleCount').value);
+        const radius = 20;
+        const padding = 40; // Adjust spacing here
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        const angleIncrement = Math.PI / (circleCount + 1);
+        
+        // Calculate canvas size based on circle positions
+        const maxDistance = circleCount * padding;
+        const canvasSize = (maxDistance + radius) * 2;
+        canvas.width = canvasSize;
+        canvas.height = canvasSize;
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        for (let i = 1; i <= circleCount; i++) {
+            const angle = i * angleIncrement;
+            const distance = i * padding;
+            const x = centerX + Math.cos(angle) * distance;
+            const y = centerY + Math.sin(angle) * distance;
+            const randomColor = getRandomColor();
+            drawCircle(x, y, radius, randomColor);
+        }
+    }
+
+    function drawCircle(x, y, radius, color) {
+        ctx.beginPath();
+        ctx.arc(x, y, radius, 0, Math.PI * 2);
+        ctx.fillStyle = color;
+        ctx.fill();
+        ctx.closePath();
+    }
+
+    function getRandomColor() {
+        const letters = '0123456789ABCDEF';
+        let color = '#';
+        for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+
+    // Initial drawing
+    drawCircles();
+</script>
+</body>
+</html>

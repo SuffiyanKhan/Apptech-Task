@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRUD Application with Image Upload</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    form {
+        margin-bottom: 20px;
+    }
+    .record-item {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+    img {
+        max-width: 100px;
+        max-height: 100px;
+    }
+</style>
+</head>
+<body>
+    <h2>CRUD Application with Image Upload</h2>
+    <form id="recordForm">
+        <input type="text" id="name" placeholder="Name" required><br>
+        <input type="email" id="email" placeholder="Email" required><br>
+        <input type="password" id="password" placeholder="Password" required><br>
+        <input type="number" id="phoneno" placeholder="Phone Number" required><br>
+        <input type="file" id="image" required><br>
+        <button type="submit">Add Record</button>
+    </form>
+    <div id="recordsContainer"></div>
+
+    <script>
+        function initializeRecords() {
+            let records = sessionStorage.getItem('records');
+            if (!records) {
+                records = [];
+                sessionStorage.setItem('records', JSON.stringify(records));
+            } else {
+                records = JSON.parse(records);
+            }
+            return records;
+        }
+
+        function displayRecords() {
+            const recordsContainer = document.getElementById('recordsContainer');
+            recordsContainer.innerHTML = '';
+            const records = initializeRecords();
+            records.forEach(record => {
+                const recordItem = document.createElement('div');
+                recordItem.classList.add('record-item');
+                recordItem.innerHTML = `
+                    <p>Name: ${record.name}</p>
+                    <p>Email: ${record.email}</p>
+                    <p>Phone Number: ${record.phoneno}</p>
+                    <img src="${record.image}" alt="Image">
+                    <button onclick="editRecord('${record.name}')">Edit</button>
+                    <button onclick="deleteRecord('${record.name}')">Delete</button>
+                `;
+                recordsContainer.appendChild(recordItem);
+            });
+        }
+
+        function addRecord(name, email, password, phoneno, image) {
+            const records = initializeRecords();
+            records.push({ name, email, password, phoneno, image });
+            sessionStorage.setItem('records', JSON.stringify(records));
+            displayRecords();
+        }
+
+        function deleteRecord(name) {
+            const records = initializeRecords().filter(record => record.name !== name);
+            sessionStorage.setItem('records', JSON.stringify(records));
+            displayRecords();
+        }
+
+        function editRecord(name) {
+            const records = initializeRecords();
+            const recordToEdit = records.find(record => record.name === name);
+            if (!recordToEdit) {
+                alert('Record not found');
+                return;
+            }
+            const newName = prompt('Enter new name:', recordToEdit.name);
+            const newEmail = prompt('Enter new email:', recordToEdit.email);
+            const newPassword = prompt('Enter new password:', recordToEdit.password);
+            const newPhoneNo = prompt('Enter new phone number:', recordToEdit.phoneno);
+            if (newName && newEmail && newPassword && newPhoneNo) {
+                recordToEdit.name = newName;
+                recordToEdit.email = newEmail;
+                recordToEdit.password = newPassword;
+                recordToEdit.phoneno = newPhoneNo;
+                sessionStorage.setItem('records', JSON.stringify(records));
+                displayRecords();
+            } else {
+                alert('Please fill out all fields.');
+            }
+        }
+
+        document.getElementById('recordForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const phoneno = document.getElementById('phoneno').value;
+            const image = document.getElementById('image').files[0];
+            if (!name || !email || !password || !phoneno || !image) {
+                alert('Please fill out all fields.');
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = function() {
+                addRecord(name, email, password, phoneno, reader.result);
+                document.getElementById('recordForm').reset();
+            }
+            reader.readAsDataURL(image);
+        });
+
+        displayRecords();
+    </script>
+</body>
+</html>

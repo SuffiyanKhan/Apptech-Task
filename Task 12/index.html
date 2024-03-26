@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkerboard Generator</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        text-align: center;
+        margin-top: 50px;
+    }
+
+    .board {
+        display: inline-block;
+        border-collapse: collapse;
+        border: 2px solid #333;
+    }
+
+    .board td {
+        width: 30px;
+        height: 30px;
+        border: 1px solid #333;
+    }
+
+    input[type="number"] {
+        width: 60px;
+        margin: 5px;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <h2>Checkerboard Generator</h2>
+    <form id="configForm">
+        <label for="rows">Number of Rows:</label>
+        <input type="number" id="rows" name="rows" min="1" value="8"><br>
+        <label for="columns">Number of Columns:</label>
+        <input type="number" id="columns" name="columns" min="1" value="8"><br>
+        <label for="lightColor">Light Square Color:</label>
+        <input type="color" id="lightColor" name="lightColor" value="#ffffff"><br>
+        <label for="darkColor">Dark Square Color:</label>
+        <input type="color" id="darkColor" name="darkColor" value="#000000"><br>
+        <button type="button" id="generateCheckerboard">Generate Checkerboard</button>
+    </form>
+    <div id="checkerboardContainer"></div>
+</div>
+
+<script>
+    document.querySelector("#generateCheckerboard").addEventListener("click",()=>{
+        let rows = document.getElementById('rows').value;
+        let columns = document.getElementById('columns').value;
+        let lightColor = document.getElementById('lightColor').value;
+        let darkColor = document.getElementById('darkColor').value;
+    
+        let checkerboardHTML = '<table class="board">';
+       for ( let i = 0; i < rows; i++) {
+           checkerboardHTML += '<tr>';
+           for ( let j = 0; j < columns; j++) {
+                let color = (i + j) % 2 === 0 ? lightColor : darkColor;
+               checkerboardHTML += '<td style="background-color: ' + color + '"></td>';
+           }
+           checkerboardHTML += '</tr>';
+       }
+       checkerboardHTML += '</table>';
+    
+       document.getElementById('checkerboardContainer').innerHTML = checkerboardHTML;
+    })
+     
+    
+</script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rainbow Drawing Application</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+    }
+    canvas {
+        border: 1px solid black;
+        margin: 20px auto;
+    }
+</style>
+</head>
+<body>
+<h1>Rainbow Drawing Application</h1>
+<div>
+    <label for="color1">Red:</label>
+    <input type="color" id="color1">
+    <label for="color2">Orange:</label>
+    <input type="color" id="color2">
+    <label for="color3">Yellow:</label>
+    <input type="color" id="color3">
+    <label for="color4">Green:</label>
+    <input type="color" id="color4">
+    <label for="color5">Blue:</label>
+    <input type="color" id="color5">
+    <label for="color6">Indigo:</label>
+    <input type="color" id="color6">
+    <label for="color7">Violet:</label>
+    <input type="color" id="color7">
+    <button onclick="drawRainbow()">Draw Rainbow</button>
+</div>
+<canvas id="rainbowCanvas" width="600" height="300"></canvas>
+
+<script>
+    function drawRainbow() {
+        let canvas = document.getElementById("rainbowCanvas");
+        let ctx = canvas.getContext("2d");
+
+        let colors = [];
+        for (let i = 1; i <= 7; i++) {
+            let colorInput = document.getElementById("color" + i);
+            colors.push(colorInput.value);
+        }
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        let centerX = canvas.width / 2;
+        let centerY = canvas.height * 0.8;
+        let radius = canvas.height * 0.7;
+
+        for (let i = 0; i < colors.length; i++) {
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius, Math.PI / 6 * i, Math.PI / 6 * (i + 1), false);
+            ctx.lineWidth = 20;
+            ctx.strokeStyle = colors[i];
+            ctx.stroke();
+        }
+    }
+</script>
+</body>
+</html>
