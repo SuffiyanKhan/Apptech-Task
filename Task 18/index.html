@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer</title>
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.countdown-container {
+    text-align: center;
+}
+
+#countdown {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+    </style>
+</head>
+<body>
+    <div class="countdown-container">
+        <h1>Countdown Timer</h1>
+        <div id="countdown"></div>
+        <label for="datetime">Enter Target Date and Time:</label>
+        <input type="datetime-local" id="datetime">
+        <button onclick="startCountdown()">Start Countdown</button>
+    </div>
+
+    <!-- <script src="script.js"></script> -->
+    <script>
+        function startCountdown() {
+    const countdownElement = document.getElementById('countdown');
+    const targetDateInput = document.getElementById('datetime');
+    const targetDate = new Date(targetDateInput.value).getTime();
+
+    if (isNaN(targetDate)) {
+        alert('Please select a valid date and time.');
+        return;
+    }
+
+    function updateCountdown() {
+        const currentDate = new Date().getTime();
+        const distance = targetDate - currentDate;
+
+       
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        countdownElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }
+
+    updateCountdown();
+    const interval = setInterval(updateCountdown, 1000);
+
+    if (distance < 0) {
+            clearInterval(interval);
+            countdownElement.innerHTML = 'Countdown Expired!';
+            return;
+        }
+}
+
+    </script>
+</body>
+</html>

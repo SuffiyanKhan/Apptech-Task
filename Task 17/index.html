@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ Accordion</title>
+  <style>
+    .accordion-item {
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .accordion-header {
+    background-color: #f4f4f4;
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .accordion-content {
+    padding: 10px;
+    display: none;
+  }
+  
+  .accordion-item.active .accordion-content {
+    display: block;
+  }
+  
+  </style>
+</head>
+<body>
+  <div class="accordion">
+    <div class="accordion-item">
+      <div class="accordion-header">What does Lorem mean?</div>
+      <div class="accordion-content">
+        <p>‘Lorem ipsum dolor sit amet, consectetur adipisici elit…’ (complete text) is dummy text that is not meant to mean anything. It is used as a placeholder in magazine layouts, for example, in order to give an impression of the finished document. The text is intentionally unintelligible so that the viewer is not distracted by the content. The language is not real Latin and even the first word ‘Lorem’ does not exist. It is said that the lorem ipsum text has been common among typesetters since the 16th century. (Source: Wikipedia.com).</p>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <div class="accordion-header">Where can I subscribe to your newsletter?</div>
+      <div class="accordion-content">
+        <p>We often send out our newsletter with news and great offers. We will never disclose your data to third parties and you can unsubscribe from the newsletter at any time. Subscribe here to our newsletter.</p>
+      </div>
+    </div>
+    <div class="accordion-item">
+        <div class="accordion-header">Where can I edit my billing and shipping address?</div>
+        <div class="accordion-content">
+          <p>If you created a new account after or while ordering you can edit both addresses (for billing and shipping) in your customer account.</p>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header">Can I order a free sample copy of a magazine?</div>
+        <div class="accordion-content">
+          <p>Unfortunately, we’re unable to offer free samples. As a retailer, we buy all magazines from their publishers at the regular trade price. However, you could contact the publisher directly.</p>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header">Are unsold magazines sent back to the publisher?</div>
+        <div class="accordion-content">
+          <p>We usually sell all copies of the magazines offered in our shop. Some publishers and distributors offer the retailer the option of returning any unsold magazines. However, because our range includes magazines from countries such as Australia, the USA and the United Kingdom, sending them back would involve considerable effort in terms of logistics and would also be very expensive. We therefore choose not to return any unsold magazines. At the same time, this allows us to also offer our customers older or out-of-print magazines./p>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header">Where can I find your disclaimer and privacy policy?</div>
+        <div class="accordion-content">
+          <p>All data will be treated as strictly confidential and will not be disclosed to third parties. Take a look on our disclaimer and Privacy Policy.</p>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header">Can I change the displayed currency?</div>
+        <div class="accordion-content">
+          <p>Yes, sure. You can change the default currency (Swiss Francs/CHF) to any other currency by scrolling down to the bottom of each page or change it here (please note that the currency will switch back to Swiss Francs/CHF in the checkout due to billing reasons):
+            Swiss franc (CHF)
+            Euro (EUR)
+            Pound sterling (GBP)
+            United States (US) dollar (USD)
+            Canadian dollar (CAD)
+            Australian dollar (AUD)
+            Japanese yen (JPY)
+            Swedish krona (SEK)
+            Norwegian krone (NOK)</p>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header">Do I have the right to return an item?</div>
+        <div class="accordion-content">
+          <p>Yes. If there are any problems with an item, you can send it back to us and we’ll be pleased to replace it free of charge. If the item can no longer be delivered, the money will be refunded in cash or in the form of a voucher. You must notify us of any problems within seven days of receiving the item. However, we assume no liability for damage caused during shipping by the postal/delivery service. For more information, please refer to our General Terms & Conditions (GTC).</p>
+        </div>
+      </div>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const items = document.querySelectorAll('.accordion-item');
+  
+    items.forEach(item => {
+      const header = item.querySelector('.accordion-header');
+      header.addEventListener('click', () => {
+        const isOpen = item.classList.contains('active');
+  
+        closeAllItems();
+        if (!isOpen) {
+          item.classList.add('active');
+        }
+      });
+    });
+  
+    function closeAllItems() {
+      items.forEach(item => {
+        item.classList.remove('active');
+      });
+    }
+  });
+  
+  </script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scroll Reveal Example</title>
+<style>
+  /* CSS Styles */
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px); /* Initial position for animation */
+    transition: opacity 0.5s ease, transform 0.5s ease; /* Smooth transition */
+  }
+  .revealed {
+    opacity: 1;
+    transform: translateY(0); /* Move to original position */
+  }
+  /* Additional styling for demonstration */
+  .section {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+  }
+  h2 {
+    margin: 0;
+  }
+</style>
+</head>
+<body>
+<div class="section" id="section1">
+  <h2 class="reveal">Section 1</h2>
+</div>
+<div class="section" id="section2">
+  <h2 class="reveal">Section 2</h2>
+</div>
+<div class="section" id="section3">
+  <h2 class="reveal">Section 3</h2>
+</div>
+
+<script>
+  // JavaScript Implementation
+  window.addEventListener('scroll', revealElements);
+
+  function revealElements() {
+    const reveals = document.querySelectorAll('.reveal');
+    for (let i = 0; i < reveals.length; i++) {
+      const windowHeight = window.innerHeight;
+      const revealTop = reveals[i].getBoundingClientRect().top;
+      const revealPoint = 50; // Adjust this value based on when you want the element to be revealed
+
+      if (revealTop < windowHeight - revealPoint) {
+        reveals[i].classList.add('revealed');
+      }
+    }
+  }
+</script>
+</body>
+</html>
